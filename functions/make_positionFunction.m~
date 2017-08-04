@@ -6,10 +6,7 @@
 % build position function for the dots at random position stimulus
 % build xpos and ypos values together, yes scramble them in the same way. 
 % NOTE these functions can be used with either 2 or 4 LED wide dots but it
-% might waste time for the 4 led since there will be a couple of blank
-% dimentions when the dot would go off the side of the screen so the screen
-% is just blank
-
+% might waste time for the 4 led since there will be a couple of bal
 PANELS_FRAME_RATE = 50; %Hz
 FLASH_DURATION = 0.5; % seconds
 BETWEEN_FLASH_DURATION = 0.5; % seconds
