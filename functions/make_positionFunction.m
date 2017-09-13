@@ -25,7 +25,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 xposMin = 1;
 xposMax = 39; % LED position at midline
 yposMin = 1;
-yposMax = LEDdotsVertically - ( DOT_WIDTH - 1);  % LED panels position
+yposMax = LEDdotsVertically - ( DOT_WIDTH );  % LED panels position
 
 % build 2 arrays that together would sample every other location in a 16X56 matrix
 xpossPosition = xposMin : 2 : xposMax; 
@@ -79,13 +79,13 @@ func_Y = ypositionFunction;
 % place to save patterns to be put on the SD card:
 func = func_X;
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
- str_x = [directory_name '\position_function_001_dots_Xpos']; 
+ str_x = [directory_name '\position_function_001_dotsIpsi_Xpos']; 
  save(str_x, 'func'); % variable must be named 'func'
 
  
 func = func_Y;
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
- str_y = [directory_name '\position_function_002_dots_Ypos']; 	
+ str_y = [directory_name '\position_function_002_dotsIpsi_Ypos']; 	
  save(str_y, 'func'); % variable must be named 'func'
 
 %% x and y postion values for dotRandLocalSearch stimulus
@@ -109,7 +109,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 xposMin = 1;
 xposMax = 9; % LED position at midline
 yposMin = 1;
-yposMax = LEDdotsVertically - ( DOT_WIDTH - 1);  % LED panels position
+yposMax = LEDdotsVertically - ( DOT_WIDTH );  % LED panels position
 
 % build 2 arrays that together would sample every other location in a 16X56 matrix
 xpossPosition = xposMin : 2 : xposMax; 
