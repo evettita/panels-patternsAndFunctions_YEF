@@ -5,7 +5,7 @@
 %   xpos = 56 and y pos = 16 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -18,7 +18,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
 pattern.y_num = LEDdotsVertically; 		% Y will store where the dot is on the screen in y, last dim = 16 is blank
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -47,7 +47,8 @@ Pats(:, : , pattern.x_num, pattern.y_num) = 0;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);
@@ -63,7 +64,7 @@ pattern.data = Make_pattern_vector(pattern);
 %   xpos = 56 and y pos = 16 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -76,7 +77,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
 pattern.y_num = LEDdotsVertically; 		% Y will store where the dot is on the screen in y, last dim = 16 is blank
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -105,7 +106,8 @@ Pats(:, : , pattern.x_num, pattern.y_num) = 0;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);
@@ -123,7 +125,7 @@ pattern.data = Make_pattern_vector(pattern);
 %   xpos = 56 and/or y pos = 2 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -136,7 +138,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
 pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -164,7 +166,8 @@ Pats(:, : , pattern.x_num, pattern.y_num) = 0;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 230 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);
@@ -181,7 +184,7 @@ pattern.data = Make_pattern_vector(pattern);
 %   xpos = 2 and/or y pos = 16 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -194,7 +197,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = 2; %  X will encode if the bar is displayed=1, not displayed= 2;
 pattern.y_num = LEDdotsVertically; 		% Y will store where the dot is on the screen in y, last dim = 16 is blank
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -218,7 +221,8 @@ Pats(:, : , pattern.x_num, pattern.y_num) = 0;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);
@@ -236,7 +240,7 @@ pattern.data = Make_pattern_vector(pattern);
 %   xpos = 56 and/or y pos = 2 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -249,7 +253,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
 pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -276,7 +280,8 @@ Pats(:, : , pattern.x_num, pattern.y_num) = 0;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);
@@ -293,7 +298,7 @@ pattern.data = Make_pattern_vector(pattern);
 %   xpos = 56 and/or y pos = 2 are the full screen dark. 
 
 clear all;
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -306,7 +311,7 @@ LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's cu
 pattern.x_num = 1; % this variable will where the dot is on the screen in x, last dim = 56 is blank
 pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
 
-pattern.num_panels = 14; 	% This is the number of unique Panel IDs required.
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 2; 	% This pattern gray scale value
 
 Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
@@ -317,7 +322,8 @@ Pats(:, : , :, ONIndex) = 1;
 
 pattern.Pats = Pats; 		% put data in structure 
 
-pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
 
 pattern.BitMapIndex = process_panel_map(pattern);
 pattern.data = Make_pattern_vector(pattern);

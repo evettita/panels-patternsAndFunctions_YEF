@@ -269,7 +269,7 @@ FLASH_DURATION = 0.5; % seconds
 BETWEEN_FLASH_DURATION = 0.5; % seconds
 
 
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -443,7 +443,7 @@ func = positionArray;
 %% ~15Deg/s RIGHTWARD Motion either Gratting or bar:
 PANELS_FRAME_RATE = 50; %Hz
 POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
@@ -484,7 +484,7 @@ func = positionArray;
  %% ~15Deg/s LEFTWARD Motion either Gratting or bar:
 PANELS_FRAME_RATE = 50; %Hz
 POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
-numOfPanelsAcross = 7;% 7 panels across
+numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
 LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
 
