@@ -268,6 +268,7 @@ PANELS_FRAME_RATE = 50; %Hz
 FLASH_DURATION = 0.5; % seconds
 BETWEEN_FLASH_DURATION = 0.5; % seconds
 
+numOfPanelsIncludingFictive = 12;
 
 numOfPanelsAcross = 9;% 7 panels across
 numOfPanelsVertically = 2;%
@@ -297,7 +298,7 @@ end
 xpositionFunction = [];
 
 % last position of the final array in this pattern
-BLANK_DIM_X = LEDdotsAcross - 1;% subtract 1 b/c controller add this to starting position which is default to 1.
+BLANK_DIM_X = (numOfPanelsIncludingFictive * LEDdotsPerPanel) - 1;% subtract 1 b/c controller add this to starting position which is default to 1.
 
 for j = 1: length( xpositionOrder )
     barPeriod_X = xpositionOrder(j)* ones(1, FLASH_DURATION * PANELS_FRAME_RATE );   
