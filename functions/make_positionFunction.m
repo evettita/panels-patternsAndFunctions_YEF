@@ -521,3 +521,112 @@ func = positionArray;
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
  str_x = [directory_name '\position_function_013_movingLeftPattern_15degS']; 
  save(str_x, 'func'); % variable must be named 'func'
+ 
+
+ %%  Interleaved moving bar stimulus 15 DEg/s   rightward then leftward
+PANELS_FRAME_RATE = 50; %Hz
+POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
+numOfPanelsAcross = 12;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 96 for yvette's set up including fictive panels
+
+PATTERN_SPEED_DEG_PER_SEC = 15;% deg/s  
+DEGREES_PRE_PIXEL = 3; % deg %CHECK!  THIS IS APPROXIMATE!!
+
+% Warning zero indexing for the position funciton!!
+XDimMin = 0;% 
+XDimMax = LEDdotsAcross;% 
+
+rightwardPositionArray = [];
+leftwardPositionArray = [];
+
+pixelPerSecond = PATTERN_SPEED_DEG_PER_SEC / DEGREES_PRE_PIXEL; % corresponding LED pixel per second
+%how many frames should be spent at each function position.
+framesDwellPerPixel =  PANELS_FRAME_RATE / pixelPerSecond; % frames/pixel=( (frames/s) / (pixel/s) )
+
+%Build Rightward segement of array:
+currFrameCounter = XDimMin;
+while (length (rightwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter <= XDimMax)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    rightwardPositionArray = [rightwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter + 1;     
+end
+
+%Build leftward segement of array:
+currFrameCounter = XDimMax - 1;
+while (length (leftwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter > XDimMin)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    leftwardPositionArray = [leftwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter - 1;  
+end
+
+NUM_TIMES_TO_REPEAT_GRATING_ROTAION = 5;
+func = [ repmat( rightwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION)  repmat( leftwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION) ];
+
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_014_movingGratingRightLeft_15degS']; 
+ save(str_x, 'func'); % variable must be named 'func'
+
+ %%  Interleaved moving bar stimulus 50 deg/s
+PANELS_FRAME_RATE = 50; %Hz
+POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
+numOfPanelsAcross = 12;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 96 for yvette's set up including fictive panels
+
+PATTERN_SPEED_DEG_PER_SEC = 50;% deg/s  
+DEGREES_PRE_PIXEL = 3; % deg %CHECK!  THIS IS APPROXIMATE!!
+
+% Warning zero indexing for the position funciton!!
+XDimMin = 0;% 
+XDimMax = LEDdotsAcross;% 
+
+rightwardPositionArray = [];
+leftwardPositionArray = [];
+
+pixelPerSecond = PATTERN_SPEED_DEG_PER_SEC / DEGREES_PRE_PIXEL; % corresponding LED pixel per second
+%how many frames should be spent at each function position.
+framesDwellPerPixel =  PANELS_FRAME_RATE / pixelPerSecond; % frames/pixel=( (frames/s) / (pixel/s) )
+
+%Build Rightward segement of array:
+currFrameCounter = XDimMin;
+while (length (rightwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter <= XDimMax)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    rightwardPositionArray = [rightwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter + 1;     
+end
+
+%Build leftward segement of array:
+currFrameCounter = XDimMax - 1;
+while (length (leftwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter > XDimMin)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    leftwardPositionArray = [leftwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter - 1;  
+end
+
+NUM_TIMES_TO_REPEAT_GRATING_ROTAION = 5;
+func = [ repmat( rightwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION)  repmat( leftwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION) ];
+
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_015_movingGratingRightLeft_50degS']; 
+ save(str_x, 'func'); % variable must be named 'func'
