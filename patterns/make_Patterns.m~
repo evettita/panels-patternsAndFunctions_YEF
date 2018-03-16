@@ -1198,7 +1198,7 @@ pattern.data = Make_pattern_vector(pattern);
  str = [directory_name '\Pattern_019_2pixelBrightVertBar_270World_right90Blank']; 	% name must begin with ‘Pattern_’
  save(str, 'pattern');
  
- 
+ %%
 %% DOT and square 2 object enviroment
 %   The bar's horizontal location is encoded in x dim 
 % whether the bar is on or not is encoded in y dim
@@ -1214,7 +1214,7 @@ STARTING_BAR_LOCATION = 24; % 90 degrees from far left of the screen
 
 DOT_WIDTH = 4; % number of LED wide and high
 STARTING_DOT_LOCATION = 1; %
-DOT_HEIGHT_LED = 1; % place dot at the top of the screen
+DOT_HEIGHT
 
 LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
 LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
@@ -1238,7 +1238,8 @@ intialPattern = zeros( LEDdotsVertically , LEDdotsAcross + 1) ;
 intialPattern( : , STARTING_BAR_LOCATION : (STARTING_BAR_LOCATION + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
 
 % draw dot onto intial pattern 
-intialPattern( DOT_HEIGHT_LED :(DOT_HEIGHT_LED + DOT_WIDTH - 1), STARTING_DOT_LOCATION : (STARTING_DOT_LOCATION + DOT_WIDTH - 1) ) = 1; % draw light dot into matrix
+intialPattern( : , STARTING_BAR_LOCATION : (STARTING_BAR_LOCATION + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
 
 
 for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
@@ -1271,10 +1272,10 @@ pattern.data = Make_pattern_vector(pattern);
 % place to save patterns to be put on the SD card:
 
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
- str = [directory_name '\Pattern_020_Dot4AndStripe1_270World']; 	% name must begin with ‘Pattern_’
+ str = [directory_name '\Pattern_020_2pixelBrightVertBar_270World_right90Blank']; 	% name must begin with ‘Pattern_’
  save(str, 'pattern');
  
- %%
+ 
  
  
  
