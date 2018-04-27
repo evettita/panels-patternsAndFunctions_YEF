@@ -686,4 +686,57 @@ func = xpositionFunction;
  str_x = [directory_name '\position_function_016_barRandLoc_Xpos_noFictivePanels']; 
  save(str_x, 'func'); % variable must be named 'func'
 
+%% Position function 17, x  postion values for barRandLoc stimulus
+% build position function for the bar at random position stimulus
+% build xpos 
+PANELS_FRAME_RATE = 50; %Hz
+FLASH_DURATION = 2; % seconds
+BETWEEN_FLASH_DURATION = 2; % seconds
 
+numOfPanelsIncludingFictive = 12;
+
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 56 for yvette's set up
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+xposMin = 1;
+xposMax = LEDdotsAcross - 2; % subtract 1 + 1 b/c controller add this to starting position which is default to 1 and so not to sample blank dim
+
+% build 2 arrays that together would sample every other location in a 16X56 matrix
+xpossPosition = xposMin : 2 : xposMax; 
+
+xpositionOrder = [];
+
+NUM_REPs = 5; % number of times this will cycle thru different random order of dot locations
+for i = 1: NUM_REPs 
+    
+    currRandomOrder = randperm( numel(xpossPosition) );
+    
+    % add another round of rand values to x pos order
+    xpositionOrder = [xpositionOrder xpossPosition( currRandomOrder ) ]; % without replacements
+end
+
+% build actual positionFunction
+xpositionFunction = [];
+
+% last position of the final array in this pattern
+BLANK_DIM_X = (numOfPanelsIncludingFictive * LEDdotsPerPanel) - 1;% subtract 1 b/c controller add this to starting position which is default to 1.
+
+for j = 1: length( xpositionOrder )
+    barPeriod_X = xpositionOrder(j)* ones(1, FLASH_DURATION * PANELS_FRAME_RATE );   
+    
+    blankPeriod_X = BLANK_DIM_X * ones(1, BETWEEN_FLASH_DURATION * PANELS_FRAME_RATE )   ; % 
+    
+    xpositionFunction = [xpositionFunction barPeriod_X blankPeriod_X];
+end 
+
+func = xpositionFunction;
+
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_017_barRandLoc_2sec_Xpos']; 
+ save(str_x, 'func'); % variable must be named 'func'
