@@ -1926,3 +1926,169 @@ pattern.data = Make_pattern_vector(pattern);
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
  str = [directory_name '\Pattern_031_complexWorld_phase3']; 	% name must begin with ‘Pattern_’
  save(str, 'pattern');
+ 
+%% Complex Scene - same as JL used %% PHASE OFFSET 1
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+% horizontal bars dashes and other vertical lines - from JL code
+horizontalbars = [ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8);ones(2, 8); zeros(2, 8)];
+initialPattern = [zeros(16, LEDdotsAcross- 20 - 32 + 1), horizontalbars, zeros(16, 4), ones(16, 2), zeros(16, 2), ones(16, 2) ,zeros(16, 32), ones(16, 2)];
+
+PHASE_SHIFT_AMOUNT = 0; % LED pixel number to shift rightward by
+% Shift pattern by desired offset
+initialPattern_shifted = circshift( initialPattern, PHASE_SHIFT_AMOUNT, 2);
+
+for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+    
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (initialPattern_shifted, (xpos - 1),'r','y'); % place
+end
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+pattern.Pats = Pats; 		% put data in structure 
+
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+%pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 , 19, 20, 21 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4, 22, 23, 24 ]; 	% 360 degree arena updated 10/25/17 define panel structure vector
+% panels 19-24 are fictive and do not actually exist on hardware!
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_032_complexScene_phase1']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
+ 
+ %% Complex Scene - same as JL used %% PHASE OFFSET 2
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+% horizontal bars dashes and other vertical lines - from JL code
+horizontalbars = [ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8);ones(2, 8); zeros(2, 8)];
+initialPattern = [zeros(16, LEDdotsAcross- 20 - 32 + 1), horizontalbars, zeros(16, 4), ones(16, 2), zeros(16, 2), ones(16, 2) ,zeros(16, 32), ones(16, 2)];
+
+PHASE_SHIFT_AMOUNT = 24; % LED pixel number to shift rightward by
+% Shift pattern by desired offset
+initialPattern_shifted = circshift( initialPattern, PHASE_SHIFT_AMOUNT, 2);
+
+for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+    
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (initialPattern_shifted, (xpos - 1),'r','y'); % place
+end
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+pattern.Pats = Pats; 		% put data in structure 
+
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+%pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 , 19, 20, 21 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4, 22, 23, 24 ]; 	% 360 degree arena updated 10/25/17 define panel structure vector
+% panels 19-24 are fictive and do not actually exist on hardware!
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_033_complexScene_phase2']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
+ 
+  %% Complex Scene - same as JL used %% PHASE OFFSET 3
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+% horizontal bars dashes and other vertical lines - from JL code
+horizontalbars = [ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8); ones(2, 8); zeros(2, 8);ones(2, 8); zeros(2, 8)];
+initialPattern = [zeros(16, LEDdotsAcross- 20 - 32 + 1), horizontalbars, zeros(16, 4), ones(16, 2), zeros(16, 2), ones(16, 2) ,zeros(16, 32), ones(16, 2)];
+
+PHASE_SHIFT_AMOUNT = 48; % LED pixel number to shift rightward by
+% Shift pattern by desired offset
+initialPattern_shifted = circshift( initialPattern, PHASE_SHIFT_AMOUNT, 2);
+
+for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+    
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (initialPattern_shifted, (xpos - 1),'r','y'); % place
+end
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+pattern.Pats = Pats; 		% put data in structure 
+
+%pattern.Panel_map = [4, 5, 12, 14, 6, 11, 13 ; 1 , 2 ,7, 10, 3, 8, 9]; 	% define panel structure vector - YEF arena updated 8/2017
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+%pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 , 19, 20, 21 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4, 22, 23, 24 ]; 	% 360 degree arena updated 10/25/17 define panel structure vector
+% panels 19-24 are fictive and do not actually exist on hardware!
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_034_complexScene_phase3']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
+ 
