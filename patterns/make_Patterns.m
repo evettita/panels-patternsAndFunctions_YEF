@@ -2702,3 +2702,216 @@ pattern.data = Make_pattern_vector(pattern);
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
  str = [directory_name '\Pattern_044_2pixelBrightVertBar_lowContrast_6vs7_270World']; 	% name must begin with ‘Pattern_’
  save(str, 'pattern');
+ 
+ 
+%% PHASE OFFSET 1:: 2 bars 135 degrees apart
+%   The bar's horizontal location is encoded in x dim 
+% whether the bar is on or not is encoded in y dim
+%   xpos = 56 and/or y pos = 2 are the full screen dark. 
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+%Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+
+% Construct the dot patterns within each dimention
+% zeros 0 = dark, ones 1 = light
+INTIAL_BAR_LOCATION =  1; % 180 degrees from far left of the screen
+NUM_LEDS_BETWEEN_BARS = 36; % 8 LED : 30deg * 3 = 135 degrees
+
+% build intial bar pattern 
+%bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross + 1) ;
+bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross ) ;
+bar_pattern( : , INTIAL_BAR_LOCATION : (INTIAL_BAR_LOCATION + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+% draw second bar:
+secondBarLocation = mod( (INTIAL_BAR_LOCATION + NUM_LEDS_BETWEEN_BARS), LEDdotsAcross );
+bar_pattern( : , secondBarLocation : (secondBarLocation + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+
+% for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+for xpos = 1: LEDdotsAcross
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (bar_pattern, (xpos - 1),'r','y'); % place
+    
+end
+
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+
+% Make sure whole matrix is blank when x or y is max  = 0 for a blank
+% screen,
+Pats(:, : , pattern.x_num, pattern.y_num) = 0;
+
+pattern.Pats = Pats; 		% put data in structure 
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_045_2barBrightBars_135apart_270World_phase1']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
+ 
+%% PHASE OFFSET 2:: 2 bars 135 degrees apart
+
+%   The bar's horizontal location is encoded in x dim 
+% whether the bar is on or not is encoded in y dim
+%   xpos = 56 and/or y pos = 2 are the full screen dark. 
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+%Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+
+% Construct the dot patterns within each dimention
+% zeros 0 = dark, ones 1 = light
+INTIAL_BAR_LOCATION =  24; % 180 degrees from far left of the screen
+NUM_LEDS_BETWEEN_BARS = 36; % 8 LED : 30deg * 3 = 135 degrees
+
+% build intial bar pattern 
+%bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross + 1) ;
+bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross ) ;
+bar_pattern( : , INTIAL_BAR_LOCATION : (INTIAL_BAR_LOCATION + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+% draw second bar:
+secondBarLocation = mod( (INTIAL_BAR_LOCATION + NUM_LEDS_BETWEEN_BARS), LEDdotsAcross );
+bar_pattern( : , secondBarLocation : (secondBarLocation + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+
+% for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+for xpos = 1: LEDdotsAcross
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (bar_pattern, (xpos - 1),'r','y'); % place
+    
+end
+
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+
+% Make sure whole matrix is blank when x or y is max  = 0 for a blank
+% screen,
+Pats(:, : , pattern.x_num, pattern.y_num) = 0;
+
+pattern.Pats = Pats; 		% put data in structure 
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_046_2barBrightBars_135apart_270World_phase2']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
+ 
+%% PHASE OFFSET 3:: 2 bars 135 degrees apart
+
+%   The bar's horizontal location is encoded in x dim 
+% whether the bar is on or not is encoded in y dim
+%   xpos = 56 and/or y pos = 2 are the full screen dark. 
+clear all;
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+BAR_WIDTH = 2; % number of LED dots wide
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 
+LEDdotsVertically = numOfPanelsVertically * LEDdotsPerPanel;% 16 for yvette's current set up
+
+%Save general infomation about pattern layout
+pattern.x_num = LEDdotsAcross; % this variable will where the dot is on the screen in x, last dim = 56 is blank
+pattern.y_num = 2; 		% Y will encode if the bar is displayed=1, not displayed= 2;
+
+pattern.num_panels = 18; 	% This is the number of unique Panel IDs required.
+pattern.gs_val = 2; 	% This pattern gray scale value
+
+%Create a single "ghost" LED column but include an extra column in the
+%pattern and then removing it at the end of the 
+%Pats = zeros(LEDdotsVertically, LEDdotsAcross + 1, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+Pats = zeros(LEDdotsVertically, LEDdotsAcross, pattern.x_num, pattern.y_num); 	%initializes the array with zeros
+
+
+% Construct the dot patterns within each dimention
+% zeros 0 = dark, ones 1 = light
+INTIAL_BAR_LOCATION =  48; % 180 degrees from far left of the screen
+NUM_LEDS_BETWEEN_BARS = 36; % 8 LED : 30deg * 3 = 135 degrees
+
+% build intial bar pattern 
+%bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross + 1) ;
+bar_pattern = zeros( LEDdotsVertically , LEDdotsAcross ) ;
+bar_pattern( : , INTIAL_BAR_LOCATION : (INTIAL_BAR_LOCATION + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+% draw second bar:
+secondBarLocation = mod( (INTIAL_BAR_LOCATION + NUM_LEDS_BETWEEN_BARS), LEDdotsAcross );
+bar_pattern( : , secondBarLocation : (secondBarLocation + BAR_WIDTH - 1) ) = 1; % draw light dot into matrix
+
+
+% for xpos = 1: LEDdotsAcross + 1 % - ( BAR_WIDTH - 1)
+for xpos = 1: LEDdotsAcross
+    % shift dot_pattern to each different location depending on current
+    % x pos
+    Pats(:, :, xpos , 1) = ShiftMatrix (bar_pattern, (xpos - 1),'r','y'); % place
+    
+end
+
+% trim sigle "Ghost" LED collumn out of the pattern and pattern dimentions since it will confuse
+% the panels system"
+Pats = Pats(:, 1:LEDdotsAcross, 1:LEDdotsAcross , :);
+
+% Make sure whole matrix is blank when x or y is max  = 0 for a blank
+% screen,
+Pats(:, : , pattern.x_num, pattern.y_num) = 0;
+
+pattern.Pats = Pats; 		% put data in structure 
+pattern.Panel_map = [9, 12, 13, 15, 17, 14, 16, 18, 8 ; 1 , 5 ,2, 6, 10, 3, 7, 11, 4]; 	% 270 degree arena updated 10/25/17 define panel structure vector
+
+pattern.BitMapIndex = process_panel_map(pattern);
+pattern.data = Make_pattern_vector(pattern);
+ 
+ %% SAVE pattern place to save patterns to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\patterns';
+ str = [directory_name '\Pattern_047_2barBrightBars_135apart_270World_phase3']; 	% name must begin with ‘Pattern_’
+ save(str, 'pattern');
