@@ -1042,3 +1042,80 @@ func = positionArray;
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
  str_x = [directory_name '\position_function_025_4500msOFF_500msON']; 
  save(str_x, 'func'); % variable must be named 'func'
+ 
+
+ %% Position function 26, pattern ON and OFF alternation/ intervleave
+PATTERN_FLASH_DURATION = 4; % seconds, 100ms
+INTER_FLASH_DURATION = 4; % seconds
+POSITION_FUNCTION_LENGTH = 10000; % this how many frames long these normally are... set by panels
+PANELS_FRAME_RATE = 50; %Hz
+
+% Warning zero indexing for the positino funciton!!
+XDim1 = 0;% display current xpos function
+XDim2 = 16;% displays xpos function 16 positions away from initial (~60deg) for typical bar pattern (3)
+
+positionArray = [];
+switchingCounter = true;
+while (length (positionArray) < POSITION_FUNCTION_LENGTH)
+
+    if(switchingCounter)
+        % build interflash period and add it to the position array
+        currFlashSegment = XDim2 * ones(1, INTER_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,  currFlashSegment ];
+        
+        switchingCounter = false;
+        
+    else
+        
+        % build flash period and add it to the position array
+        currFlashSegment = XDim1 * ones(1, PATTERN_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,   currFlashSegment ];
+        
+        switchingCounter = true;
+    end
+end
+
+func = positionArray;
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_026_4sxPos16_4sInitialX']; 
+ save(str_x, 'func'); % variable must be named 'func'
+ 
+  %% Position function 27, pattern ON and OFF alternation/ intervleave
+PATTERN_FLASH_DURATION = 0.5; % seconds
+INTER_FLASH_DURATION = 3.5; % seconds
+POSITION_FUNCTION_LENGTH = 10000; % this how many frames long these normally are... set by panels
+PANELS_FRAME_RATE = 50; %Hz
+
+% Warning zero indexing for the position funciton!!
+YDim1 = 0;% displays full pattern on the screen (dim = 1) if this is zero indexing now... which i think it should be for position functions
+YDim2 = 1;% displays full dark screen (dim = 2), if this is zero indexing now... which i think it should be for position functions
+
+positionArray = [];
+switchingCounter = true;
+while (length (positionArray) < POSITION_FUNCTION_LENGTH)
+
+    if(switchingCounter)
+        % build interflash period and add it to the position array
+        currFlashSegment = YDim2 * ones(1, INTER_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,  currFlashSegment ];
+        switchingCounter = false;
+        
+    else
+        % build flash period and add it to the position array
+        currFlashSegment = YDim1 * ones(1, PATTERN_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,   currFlashSegment ];
+        switchingCounter = true;
+    end
+      
+end
+
+func = positionArray;
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_027_3500msOFF_500msON']; 
+ save(str_x, 'func'); % variable must be named 'func
+ 
+ 
