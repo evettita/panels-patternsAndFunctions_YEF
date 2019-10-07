@@ -1175,3 +1175,55 @@ func = xpositionFunction;
  save(str_x, 'func'); % variable must be named 'func'
  
  
+  %% Position function 29, pattern ON and OFF alternation/ intervleave
+PATTERN_FLASH_DURATION = 0.30; % seconds
+INTER_FLASH_DURATION = 0.30; % seconds
+POSITION_FUNCTION_LENGTH = 10000; % this how many frames long these normally are... set by panels
+PANELS_FRAME_RATE = 50; %Hz
+
+% Warning zero indexing for the positino funciton!!
+YDim1 = 0;% displays full pattern on the screen (dim = 1) if this is zero indexing now... which i think it should be for position functions
+YDim2 = 1;% displays full dark screen (dim = 2), if this is zero indexing now... which i think it should be for position functions
+
+positionArray = [];
+switchingCounter = true;
+while (length (positionArray) < POSITION_FUNCTION_LENGTH)
+
+    if(switchingCounter)
+        % build interflash period and add it to the position array
+        currFlashSegment = YDim2 * ones(1, INTER_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,  currFlashSegment ];
+        switchingCounter = false;
+        
+    else
+        % build flash period and add it to the position array
+        currFlashSegment = YDim1 * ones(1, PATTERN_FLASH_DURATION * PANELS_FRAME_RATE);
+        positionArray = [ positionArray,   currFlashSegment ];
+        switchingCounter = true;
+    end
+      
+end
+
+func = positionArray;
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_029_300msOFF_300msON']; 
+ save(str_x, 'func'); % variable must be named 'func'
+ 
+ %% Position function 30, Static array for when you don't want the other channel to move
+
+PANELS_FRAME_RATE = 50; %Hz
+
+POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
+
+
+positionArray = ones(1, POSITION_FUNCTION_LENGTH);
+
+func = positionArray;
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_030_Static1']; 
+ save(str_x, 'func'); % variable must be named 'func'
+ 
