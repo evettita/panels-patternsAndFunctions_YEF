@@ -1230,7 +1230,7 @@ func = positionArray;
  
 %% Position function 31, pattern ON (0- 61 secs) then OFF(61-250s) then ON again (250-480) 
 % to be used with pattern 3
-PANELS_FRAME_RATE = 5; %Hz
+PANELS_FRAME_RATE = 50; %Hz
 OFF_start_sec = 61; % seconds
 OFF_start_frame = PANELS_FRAME_RATE*OFF_start_sec;
 OFF_end_sec = 250; % seconds
@@ -1257,9 +1257,9 @@ func = positionArray;
  
  %% Position function 32, pattern OFF(0-240s) then ON again (240-480) 
 % to be used with pattern 3
-PANELS_FRAME_RATE = 5; %Hz
+PANELS_FRAME_RATE = 50; %Hz
 ON_start_sec = 240; % seconds
-ON_start_frame = PANELS_FRAME_RATE*ON_start_sec;
+ON_start_frame = PANELS_FRAME_RATE*OFF_start_sec;
 
 duration = 480; %seconds
 POSITION_FUNCTION_LENGTH = duration*PANELS_FRAME_RATE; % this how many frames long these normally are... set by panels
