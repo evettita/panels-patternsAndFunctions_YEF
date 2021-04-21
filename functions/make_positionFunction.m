@@ -1368,3 +1368,102 @@ func = YPositionArray;
  directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
  str_x = [directory_name '\position_function_034_topToBottomElevationOnBarSwing_15degS']; 
  save(str_x, 'func'); % variable must be named 'func'
+ 
+%%  Interleaved moving bar stimulus 15 DEg/s   2 swings rightward then 2 swings leftward
+PANELS_FRAME_RATE = 50; %Hz
+POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 96 for yvette's set up including fictive panels
+
+PATTERN_SPEED_DEG_PER_SEC = 15;% deg/s  
+DEGREES_PRE_PIXEL = 3; % deg THIS IS APPROXIMATE!!
+
+% Warning zero indexing for the position funciton!!
+XDimMin = 0;% 
+XDimMax = LEDdotsAcross;% 
+
+rightwardPositionArray = [];
+leftwardPositionArray = [];
+
+pixelPerSecond = PATTERN_SPEED_DEG_PER_SEC / DEGREES_PRE_PIXEL; % corresponding LED pixel per second
+%how many frames should be spent at each function position.
+framesDwellPerPixel =  PANELS_FRAME_RATE / pixelPerSecond; % frames/pixel=( (frames/s) / (pixel/s) )
+
+%Build Rightward segement of array:
+currFrameCounter = XDimMin;
+while (length (rightwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter <= XDimMax)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    rightwardPositionArray = [rightwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter + 1;     
+end
+
+%Build leftward segement of array:
+currFrameCounter = XDimMax;
+while (length (leftwardPositionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter >= XDimMin)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    leftwardPositionArray = [leftwardPositionArray addToArray ];
+    
+    currFrameCounter = currFrameCounter - 1;  
+end
+
+NUM_TIMES_TO_REPEAT_GRATING_ROTAION = 2;
+func = [ repmat( rightwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION)  repmat( leftwardPositionArray , 1, NUM_TIMES_TO_REPEAT_GRATING_ROTAION) ];
+
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_035_moving2Right2Left_15degS']; 
+ save(str_x, 'func'); % variable must be named 'func'
+ 
+%% Dot top to bottom alternation every 2 bar swings... ~15Deg/s bar swings
+PANELS_FRAME_RATE = 50; %Hz
+POSITION_FUNCTION_LENGTH = 1000; % this how many frames long these normally are... set by panels
+numOfPanelsAcross = 9;% 7 panels across
+numOfPanelsVertically = 2;%
+LEDdotsPerPanel = 8; % this shouldn't change!  LEDs are always 8 dots in x and y. 
+
+LEDdotsAcross = numOfPanelsAcross * LEDdotsPerPanel; % 56 for yvette's set up
+
+PATTERN_SPEED_DEG_PER_SEC = 15;% deg/s  
+DEGREES_PRE_PIXEL = 3; % deg %CHECK!  THIS IS APPROXIMATE!!
+
+% Warning zero indexing for the position funciton!!
+XDimMin = 0;% 
+XDimMax = LEDdotsAcross;% 
+
+positionArray = [];
+switchingCounter = true;
+
+pixelPerSecond = PATTERN_SPEED_DEG_PER_SEC / DEGREES_PRE_PIXEL; % corresponding LED pixel per second
+%how many frames should be spent at each function position.
+framesDwellPerPixel =  PANELS_FRAME_RATE / pixelPerSecond; % frames/pixel=( (frames/s) / (pixel/s) )
+
+currFrameCounter = XDimMin;
+while (length (positionArray) < POSITION_FUNCTION_LENGTH) && (currFrameCounter <= XDimMax)
+    
+    addToArray = currFrameCounter * ones( 1,  framesDwellPerPixel );
+
+    positionArray = [positionArray addToArray ];
+
+    currFrameCounter = currFrameCounter + 1;     
+end
+
+YDimTop = 0;
+YDimBottom = 14;
+
+YPositionArray = [ YDimTop*ones( 1, length(positionArray)) YDimTop*ones( 1, length(positionArray))...
+    YDimBottom*ones( 1, length(positionArray)) YDimBottom*ones( 1, length(positionArray)) ];
+func = YPositionArray;
+%% SAVE position function place to be put on the SD card:
+% place to save patterns to be put on the SD card:
+ directory_name = 'C:\Users\Wilson\Documents\GitHub\panels-patternsAndFunctions_YEF\functions\';
+ str_x = [directory_name '\position_function_036_topToBottom2BarSwings_15degS']; 
+ save(str_x, 'func'); % variable must be named 'func'
